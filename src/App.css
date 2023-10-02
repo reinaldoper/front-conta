@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-  background-image: url('https://img.freepik.com/fotos-premium/d-compras-conceito-on-line-com-carrinho-de-compras-bolsa-balao-cartao-de-credito-e-telefone-celular-renderizacao-3d_265427-252.jpg?w=1380');
+  background-image: url('./assets/images/download.png');
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
