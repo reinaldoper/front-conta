@@ -123,7 +123,7 @@ export default function ClearAccount() {
                 <div className="form-group">
                   <button type="button"
                     data-testId='button-delete'
-                    style={{ marginLeft: '15vh', width: '10vh', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
+                    style={{ display: 'flex', justifyContent: 'center', width: '10vw', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
                     className="btn btn-danger"
                     onClick={handleClick}
                   >
