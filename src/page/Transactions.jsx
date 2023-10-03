@@ -1,7 +1,6 @@
 import NavbarUser from "../components/NavbarUser";
 import { useEffect, useState } from "react";
 import { fetchUser } from "../service/fetch";
-import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import formatDate from "../utils/formateData";
 import formatCpf from "../utils/RetornCpf";
 import { CunstomList, StyledPagination } from "../styles/loginForm";
@@ -19,7 +18,6 @@ export default function Transaction() {
   useEffect(() => {
     const getData = async () => {
       const resul = localStorage.getItem('token');
-      /* console.log(resul, 'token'); */
       const { token } = JSON.parse(resul);
       console.log(resul, token);
       const emails = localStorage.getItem('email');
@@ -36,7 +34,6 @@ export default function Transaction() {
       };
       const result = await fetchUser(options, '/get');
       setUser(result);
-      console.log(result.data.cpf);
       const response = {
         method: 'PATCH',
         body: JSON.stringify({ cpf: result.data.cpf }),
@@ -60,9 +57,9 @@ export default function Transaction() {
     const [datePart] = timestamp.split(' ');
     return new Date(datePart);
   }
-  
+
   let totalCashbackEmReais = 0;
-  if(transaction.length > 0) {
+  if (transaction.length > 0) {
     totalCashbackEmReais += transaction.reduce((total, item) => {
       const cashbackValor = Number(item.value) * Number(item.cashback);
       return total + cashbackValor;
@@ -70,45 +67,23 @@ export default function Transaction() {
   }
 
   const result = (transaction.length > 0 ? transaction.slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage).map((transacao) => (
-    <ListItem
-      key={transacao.id}
-      style={{
-        display: 'flex',
-        marginLeft: '1rem',
-        marginBottom: '1rem',
-        height: '10rem',
-        flexWrap: 'wrap',
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        width: '40%',
-      }}
-    >
-      <ListItemText
-        primary={
-          <>
-            <Typography variant="h6" color="success">
-              Date: {formatDate(transacao.date)}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Cashback: {transacao.cashback}
-            </Typography>
-            <Typography variant="h6" color="success">
-              Value: {transacao.value}
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              TransactionId: {transacao.transactionId}
-            </Typography>
-          </>
-        }
-        secondary={
-          <Typography variant="body1" color="textSecondary">
-            accountId: {formatCpf(transacao.accountId)}
-          </Typography>
-        }
-        inset={true}
-      />
-    </ListItem>
-  )) : <h1 style={{ color: '#0f7d7e', margin: 'auto'}}>Not one<br></br> transactions!</h1>);
+    <div className="card-container" style={{
+      display: 'flex',
+      flexDirection: 'column',
+      marginLeft: '1rem',
+      marginBottom: '1rem',
+      border: 'none',
+      width: '40rem',
+    }} key={transacao.id}>
+      <div className="card-body" style={{ backgroundColor: '#a5e6c8', borderRadius: '8px'}}>
+        <h5 className="card-title">Cashback: {transacao.cashback}</h5>
+        <h6 className="card-subtitle mb-2 text-muted">TransactionId: {transacao.transactionId}</h6>
+        <h5 className="card-title">accountId: {formatCpf(transacao.accountId)}</h5>
+        <h6 className="card-subtitle mb-2 text-muted">Date: {formatDate(transacao.date)}</h6>
+        <p className="card-text">Value: {transacao.value}</p>
+      </div>
+    </div>
+  )) : <h1 style={{ color: '#0f7d7e', margin: 'auto' }}>Not one<br></br> transactions!</h1>);
 
   const handlePageChange = (page) => {
     setActivePage(Number(page));
@@ -117,19 +92,19 @@ export default function Transaction() {
   return (
     <>
       <NavbarUser data={user.data} />
-      {msg.length > 0 ? <h1 style={{ textAlign: 'center', color: '#0f7d7e', marginTop: '20vh'}}>{msg}</h1> :
+      {msg.length > 0 ? <h1 style={{ textAlign: 'center', color: '#0f7d7e', marginTop: '20vh' }}>{msg}</h1> :
         <CunstomList>
-          <h3 style={{color: '#232226', backgroundColor: '#acce91'}}>cashback: {totalCashbackEmReais.toFixed(2)}R$</h3>
-          <List style={{
+          <h3 style={{ color: '#232226', backgroundColor: '#abbb9f', borderRadius: '8px', marginTop: '10px' }}>cashback: {totalCashbackEmReais.toFixed(2)}R$</h3>
+          <ul style={{
             display: 'flex',
+            alignItems: 'center',
+            marginTop: '10vh',
             flexWrap: 'wrap',
-            paddingTop: '0.1vw',
-            marginTop: '7.5%',
-            marginLeft: '13rem',
-            width: '80rem'
+            justifyContent: 'center',
+            
           }}>
             {result}
-          </List>
+          </ul>
           {result.length > 0 ?
             <StyledPagination
               count={Math.ceil(totalItemsCount / itemsPerPage)}

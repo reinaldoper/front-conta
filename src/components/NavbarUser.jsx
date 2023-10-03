@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const NavbarUser = ({ data }) => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container style={{ backgroundColor: '#c4c776', borderRadius: '5px'}}>
+      <Container style={{ backgroundColor: '#abbb9f', borderRadius: '5px'}}>
         <Navbar.Brand as={Link} to="/">Login - Page</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
