@@ -93,9 +93,15 @@ export default function RecoverAccount() {
       <NavbarUser data={user.data} />
       <div className="container">
         <div className="d-flex justify-content-center h-100">
-          <div className="card">
+          <div className="card" style={{
+            height: '37vh',
+            marginTop: '20rem',
+            marginBottom: 'auto',
+            backgroundColor: '#a5e6c8',
+            width: '30vw'
+          }}>
             <div className="card-header">
-              <h3>Account recover</h3>
+              <h3 style={{color: 'black',}}>Account recover</h3>
             </div>
             <div className="card-body">
               <form>

@@ -86,9 +86,15 @@ export default function CreateCashback() {
       <NavbarUser data={user.data} />
       <div className="container">
         <div className="d-flex justify-content-center h-100">
-          <div className="card">
+          <div className="card" style={{
+            height: '37vh',
+            marginTop: '20rem',
+            marginBottom: 'auto',
+            backgroundColor: '#a5e6c8',
+            width: '30vw'
+          }}>
             <div className="card-header">
-              <h3>Cashback create</h3>
+              <h3 style={{color: 'black',}}>Cashback create</h3>
             </div>
             <div className="card-body">
               <form>

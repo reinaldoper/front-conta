@@ -64,9 +64,16 @@ function Login() {
     <>
       <div className="container">
         <div className="d-flex justify-content-center h-100">
-          <div className="card">
+          <div className="card" style={{
+            height: '37vh',
+            marginTop: '20rem',
+            marginBottom: 'auto',
+            width: '30vw',
+            
+            backgroundColor: '#a5e6c8',
+          }}>
             <div className="card-header">
-              <h3>Sign In</h3>
+              <h3 style={{color: 'black',}}>Sign In</h3>
             </div>
             <div className="card-body">
               <form>
@@ -96,8 +103,8 @@ function Login() {
                 </div>
                 <div className="form-group">
                   <button type="button"
-                    style={{ marginLeft: '15vh', width: '10vh', height: '5vh', marginTop: '0.5vw', textAlign: 'center'}}
-                    className="btn btn-success" 
+                    style={{ marginLeft: '15vh', width: '10vh', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
+                    className="btn btn-success"
                     onClick={handleClick}
                   >
                     <GetAppSharp />

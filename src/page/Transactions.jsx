@@ -67,13 +67,13 @@ export default function Transaction() {
   }
 
   const result = (transaction.length > 0 ? transaction.slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage).map((transacao) => (
-    <div className="card-container" style={{
+    <div className="card" style={{
       display: 'flex',
       flexDirection: 'column',
       marginLeft: '1rem',
       marginBottom: '1rem',
       border: 'none',
-      width: '40rem',
+      width: '40vw',
     }} key={transacao.id}>
       <div className="card-body" style={{ backgroundColor: '#a5e6c8', borderRadius: '8px'}}>
         <h5 className="card-title">Cashback: {transacao.cashback}</h5>
