@@ -75,7 +75,7 @@ export default function Transaction() {
       border: 'none',
       width: '40vw',
     }} key={transacao.id}>
-      <div className="card-body" style={{ backgroundColor: '#a5e6c8', borderRadius: '8px'}}>
+      <div className="card-body" style={{ backgroundColor: '#a5e6c8', borderRadius: '8px' }}>
         <h5 className="card-title">Cashback: {transacao.cashback}</h5>
         <h6 className="card-subtitle mb-2 text-muted">TransactionId: {transacao.transactionId}</h6>
         <h5 className="card-title">accountId: {formatCpf(transacao.accountId)}</h5>
@@ -91,17 +91,23 @@ export default function Transaction() {
 
   return (
     <>
-      <NavbarUser data={user.data} />
+      <div className="card">
+        <h5 className="card-header"><NavbarUser data={user.data} /></h5>
+        <div className="card-body">
+          <h5 className="card-title">Transactions</h5>
+          <p className="card-text">All content your transactions.</p>
+          <h5>cashback: {totalCashbackEmReais.toFixed(2)}R$</h5>
+        </div>
+      </div>
       {msg.length > 0 ? <h1 style={{ textAlign: 'center', color: '#0f7d7e', marginTop: '20vh' }}>{msg}</h1> :
         <CunstomList>
-          <h3 style={{ color: '#232226', backgroundColor: '#abbb9f', borderRadius: '8px', marginTop: '10px' }}>cashback: {totalCashbackEmReais.toFixed(2)}R$</h3>
           <ul style={{
             display: 'flex',
             alignItems: 'center',
-            marginTop: '10vh',
+            marginTop: '5vh',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            
+
           }}>
             {result}
           </ul>
