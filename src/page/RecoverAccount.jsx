@@ -90,7 +90,7 @@ export default function RecoverAccount() {
 
   return (
     <>
-      <NavbarUser data={user.data} />
+      <h5 className="card-header"><NavbarUser data={user.data} /></h5>
       <div className="container">
         <div className="d-flex justify-content-center h-100">
           <div className="card" style={{
