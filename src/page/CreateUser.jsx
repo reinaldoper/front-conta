@@ -71,7 +71,7 @@ export default function CreateUser() {
       <div className="container">
         <div className="d-flex justify-content-center h-100">
           <div className="card" style={{
-            height: '37vh',
+            height: '42vh',
             marginTop: '20rem',
             marginBottom: 'auto',
             backgroundColor: '#a5e6c8',
