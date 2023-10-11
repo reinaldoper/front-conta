@@ -40,7 +40,7 @@ function Login() {
       } else {
         localStorage.setItem('token', JSON.stringify(data));
         localStorage.setItem('email', JSON.stringify(email));
-        navigate('/create');
+        navigate('/transaction');
         setPassword('');
         setEmail('');
         startTimer();
