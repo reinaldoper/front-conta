@@ -17,6 +17,8 @@ function Login() {
   const navigate = useNavigate();
 
   const handleClick = async () => {
+    setShowAlert(true);
+    setMsg('Carregando...');
     if (validateEmail(email)) {
       const update = {
         email,
@@ -69,11 +71,11 @@ function Login() {
             marginTop: '20rem',
             marginBottom: 'auto',
             width: '30vw',
-            
+
             backgroundColor: '#a5e6c8',
           }}>
             <div className="card-header">
-              <h3 style={{color: 'black',}}>Sign In</h3>
+              <h3 style={{ color: 'black', }}>Sign In</h3>
             </div>
             <div className="card-body">
               <form>
