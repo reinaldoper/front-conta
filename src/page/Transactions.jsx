@@ -4,6 +4,7 @@ import { fetchUser } from "../service/fetch";
 import formatDate from "../utils/formateData";
 import formatCpf from "../utils/RetornCpf";
 import { CunstomList, StyledPagination } from "../styles/loginForm";
+import cashback from "../assets/images/cashback.jpg";
 
 
 
@@ -93,10 +94,13 @@ export default function Transaction() {
     <>
       <div className="card bg-secondary">
         <h5 className="card-header"><NavbarUser data={user.data} /></h5>
-        <div className="card-body">
-          <h5 className="card-title">Transactions</h5>
-          <p className="card-text">All content your transactions.</p>
-          <h5>cashback: {totalCashbackEmReais.toFixed(2)}R$</h5>
+        <div className="div-content">
+          <div className="card-body">
+            <h5 className="card-title">Transactions</h5>
+            <p className="card-text">All content your transactions.</p>
+            <h5>cashback: {totalCashbackEmReais.toFixed(2)}R$</h5>
+          </div>
+          <img src={cashback} alt="cashback" className="img"/>
         </div>
       </div>
       {msg.length > 0 ? <h1 style={{ textAlign: 'center', color: '#0f7d7e', marginTop: '20vh' }}>{msg}</h1> :
