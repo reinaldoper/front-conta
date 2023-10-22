@@ -91,7 +91,7 @@ export default function Transaction() {
 
   return (
     <>
-      <div className="card">
+      <div className="card bg-secondary">
         <h5 className="card-header"><NavbarUser data={user.data} /></h5>
         <div className="card-body">
           <h5 className="card-title">Transactions</h5>
