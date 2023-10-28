@@ -139,4 +139,10 @@ export const CunstomList = styled(Box)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border: 1px solid gray;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+    background-color: gray;
 `
