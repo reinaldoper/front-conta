@@ -6,9 +6,15 @@ import { Alert, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import GetAppSharp from '@mui/icons-material/GetAppSharp';
 import validateEmail from '../utils/validateEmail';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 function Login() {
+
+  AOS.init({
+    duration: 2500,
+  });
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState('');
@@ -64,7 +70,7 @@ function Login() {
 
   return (
     <>
-      <div className="container">
+      <div className="container" data-aos="fade-down">
         <div className="d-flex justify-content-center h-100">
           <div className="card" style={{
             height: '37vh',

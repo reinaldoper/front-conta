@@ -5,8 +5,13 @@ import { Alert } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add"
 import NavbarUser from '../components/NavbarUser';
 import formateCPF from '../utils/FormataCpf';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function CreateTransaction() {
+  AOS.init({
+    duration: 2500,
+  });
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -85,7 +90,7 @@ export default function CreateTransaction() {
   return (
     <>
       <h5 className="card-header"><NavbarUser data={user.data} /></h5>
-      <div className="container">
+      <div className="container" data-aos="fade-down">
         <div className="d-flex justify-content-center h-100">
           <div className="card" style={{
             height: '37vh',

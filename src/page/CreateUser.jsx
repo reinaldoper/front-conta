@@ -6,8 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import AddIcon from "@mui/icons-material/Add"
 import formateCPF from '../utils/FormataCpf';
 import validateEmail from "../utils/validateEmail";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function CreateUser() {
+  AOS.init({
+    duration: 2500,
+  });
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState('');
@@ -68,7 +73,7 @@ export default function CreateUser() {
 
   return (
     <div>
-      <div className="container">
+      <div className="container" data-aos="fade-down">
         <div className="d-flex justify-content-center h-100">
           <div className="card" style={{
             height: '42vh',
