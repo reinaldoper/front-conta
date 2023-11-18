@@ -4,7 +4,7 @@ html,body{
   width: 100%;
   height: 100vh;
   background-image: url('https://ci5.googleusercontent.com/proxy/5pfYErWuRlnhmlG9A4etZ8ZyX3yTP_H7XQx9tVWjcWRaWMePmnyQYEgs7kN8hzTBPmHSuvGe-WYJqcHubX8f0tGsumVLSLLZX-RVDfqQM1szhEkdt7MjDmji=s0-d-e1-ft#https://i.pinimg.com/474x/3f/e9/f9/3fe9f93064aee04ff6a19caa5649696d.jpg');
-  background-size: cover;
+  background-size: 100% 100%;
   font-family: 'Numans', sans-serif;
 
   }
