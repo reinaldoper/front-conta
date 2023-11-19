@@ -144,6 +144,6 @@ export const CunstomList = styled(Box)`
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 5px;
-    background-image: linear-gradient(#a795a5, #7a959e, #424e5e);
+    background-image: url('https://ci6.googleusercontent.com/proxy/3pz0uM_MzXjTcdBvSS_CbblD0Eg68JG8GzqXh-wx7C-kRuhNcUqCVPTBh2KCEBL3JX9Ts7xcZ-1j69nIeaZJ9X4FCzachY8sGUAuQvJrm5LatqrdWqqEFqjW=s0-d-e1-ft#https://i.pinimg.com/474x/6e/5e/7a/6e5e7afc89c7c8cb8a9818c578de69ea.jpg');
     background-size: 100% 100% !important;
 `
