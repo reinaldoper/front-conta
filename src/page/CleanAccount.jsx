@@ -1,5 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchUser } from '../service/fetch';
 import { Alert } from '@mui/material';
@@ -11,19 +11,18 @@ export default function ClearAccount() {
   AOS.init({
     duration: 2500,
   });
+
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [user, setUser] = useState('');
 
-  /* const confirm = useConfirm(); */
   const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
       const resul = localStorage.getItem('token');
       const { token } = JSON.parse(resul);
-      console.log(token);
       const emails = localStorage.getItem('email');
       const update = {
         email: JSON.parse(emails),
@@ -38,8 +37,7 @@ export default function ClearAccount() {
       };
       const result = await fetchUser(options, '/get');
       setUser(result);
-
-    }
+    };
     getData();
   }, []);
 
@@ -71,7 +69,7 @@ export default function ClearAccount() {
       }
     } else {
       setShowAlert(true);
-      setMsg('check it email!');
+      setMsg('Please check the email format.');
       setEmail('');
       startTimer();
     }
@@ -85,14 +83,8 @@ export default function ClearAccount() {
 
   const validateEmail = (email) => {
     const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (reg.test(email)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
+    return reg.test(email);
+  };
 
   return (
     <>
@@ -107,7 +99,7 @@ export default function ClearAccount() {
             width: '30vw'
           }}>
             <div className="card-header">
-              <h3 style={{color: 'black',}}>Account delete</h3>
+              <h3 style={{ color: 'black', }}>Account Delete</h3>
             </div>
             <div className="card-body">
               <form>
@@ -115,19 +107,27 @@ export default function ClearAccount() {
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={email}
-                    placeholder="email"
+                    placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-
                 </div>
                 <div className="form-group">
-                  <button type="button"
+                  <button
+                    type="button"
                     data-testId='button-delete'
-                    style={{ display: 'flex', justifyContent: 'center', width: '10vw', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '10vw',
+                      height: '5vh',
+                      marginTop: '0.5vw',
+                      textAlign: 'center'
+                    }}
                     className="btn btn-danger"
                     onClick={handleClick}
                   >
@@ -145,5 +145,5 @@ export default function ClearAccount() {
         </div>
       </div>
     </>
-  )
+  );
 }

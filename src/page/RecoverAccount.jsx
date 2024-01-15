@@ -1,5 +1,5 @@
-import EditIcon from "@mui/icons-material/Edit"
-import { useState, useEffect } from 'react'
+import EditIcon from "@mui/icons-material/Edit";
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchUser } from '../service/fetch';
 import { Alert } from '@mui/material';
@@ -7,10 +7,11 @@ import NavbarUser from '../components/NavbarUser';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-export default function RecoverAccount() {
+const RecoverAccount = () => {
   AOS.init({
     duration: 2500,
   });
+
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
@@ -20,13 +21,14 @@ export default function RecoverAccount() {
 
   useEffect(() => {
     const getData = async () => {
-      const resul = localStorage.getItem('token');
-      const { token } = JSON.parse(resul);
-      console.log(token);
-      const emails = localStorage.getItem('email');
+      const resultToken = localStorage.getItem('token');
+      const { token } = JSON.parse(resultToken);
+
+      const resultEmail = localStorage.getItem('email');
       const update = {
-        email: JSON.parse(emails),
+        email: JSON.parse(resultEmail),
       };
+
       const options = {
         method: 'PATCH',
         body: JSON.stringify(update),
@@ -35,17 +37,19 @@ export default function RecoverAccount() {
           'Authorization': token,
         },
       };
+
       const result = await fetchUser(options, '/get');
       setUser(result);
+    };
 
-    }
     getData();
   }, []);
 
   const handleClick = async () => {
     if (validateEmail(email)) {
-      const resul = localStorage.getItem('token');
-      const { token } = JSON.parse(resul);
+      const resultToken = localStorage.getItem('token');
+      const { token } = JSON.parse(resultToken);
+
       const update = {
         email,
       };
@@ -58,19 +62,26 @@ export default function RecoverAccount() {
           'Authorization': token,
         },
       };
-      const { message } = await fetchUser(options, '/recover');
-      if (message) {
+
+      try {
+        const { message } = await fetchUser(options, '/recover');
+
+        if (message) {
+          setShowAlert(true);
+          setMsg(message);
+        } else {
+          setEmail('');
+          navigate('/');
+        }
+      } catch (error) {
         setShowAlert(true);
-        setMsg(message);
-        setEmail('');
+        setMsg('An error occurred while processing your request.');
+      } finally {
         startTimer();
-      } else {
-        setEmail('');
-        navigate('/');
       }
     } else {
       setShowAlert(true);
-      setMsg('check it email!');
+      setMsg('Check your email format!');
       setEmail('');
       startTimer();
     }
@@ -84,14 +95,8 @@ export default function RecoverAccount() {
 
   const validateEmail = (email) => {
     const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (reg.test(email)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
+    return reg.test(email);
+  };
 
   return (
     <>
@@ -106,7 +111,7 @@ export default function RecoverAccount() {
             width: '30vw'
           }}>
             <div className="card-header">
-              <h3 style={{color: 'black',}}>Account recover</h3>
+              <h3 style={{ color: 'black', }}>Account recover</h3>
             </div>
             <div className="card-body">
               <form>
@@ -114,17 +119,18 @@ export default function RecoverAccount() {
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={email}
                     placeholder="email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-
                 </div>
                 <div className="form-group">
-                  <button type="button"
+                  <button
+                    type="button"
                     data-testId='button-recover'
                     style={{ display: 'flex', justifyContent: 'center', width: '10vw', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
                     className="btn btn-primary"
@@ -144,5 +150,7 @@ export default function RecoverAccount() {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
+
+export default RecoverAccount;

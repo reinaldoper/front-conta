@@ -1,5 +1,5 @@
 import '../App.css';
-import { useState } from 'react'
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchUser } from '../service/fetch';
 import { Alert, Typography } from '@mui/material';
@@ -9,12 +9,11 @@ import validateEmail from '../utils/validateEmail';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
-function Login() {
-
+const Login = () => {
   AOS.init({
     duration: 2500,
   });
+
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState('');
@@ -22,9 +21,10 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleClick = async () => {
+  const handleLogin = async () => {
     setShowAlert(true);
-    setMsg('Carregando...');
+    setMsg('Loading...');
+
     if (validateEmail(email)) {
       const update = {
         email,
@@ -38,24 +38,30 @@ function Login() {
           'Content-Type': 'application/json',
         },
       };
-      const { message, data } = await fetchUser(options, '/');
-      if (message) {
+
+      try {
+        const { message, data } = await fetchUser(options, '/');
+
+        if (message) {
+          setShowAlert(true);
+          setMsg(message);
+        } else {
+          localStorage.setItem('token', JSON.stringify(data));
+          localStorage.setItem('email', JSON.stringify(email));
+          navigate('/transaction');
+        }
+
+      } catch (error) {
         setShowAlert(true);
-        setMsg(message);
-        setPassword('');
-        setEmail('');
-        startTimer();
-      } else {
-        localStorage.setItem('token', JSON.stringify(data));
-        localStorage.setItem('email', JSON.stringify(email));
-        navigate('/transaction');
+        setMsg('An error occurred while processing your request.');
+      } finally {
         setPassword('');
         setEmail('');
         startTimer();
       }
     } else {
       setShowAlert(true);
-      setMsg('check it email!');
+      setMsg('Check your email format!');
       setPassword('');
       setEmail('');
       startTimer();
@@ -77,7 +83,6 @@ function Login() {
             marginTop: '20rem',
             marginBottom: 'auto',
             width: '30vw',
-
             backgroundColor: '#a5e6c8',
           }}>
             <div className="card-header">
@@ -89,20 +94,21 @@ function Login() {
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={email}
                     placeholder="email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-
                 </div>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-key"></i></span>
                   </div>
-                  <input type="password"
+                  <input
+                    type="password"
                     className="form-control"
                     value={password}
                     placeholder="password"
@@ -110,10 +116,18 @@ function Login() {
                   />
                 </div>
                 <div className="form-group">
-                  <button type="button"
-                    style={{ display: 'flex', justifyContent: 'center', width: '10vw', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
+                  <button
+                    type="button"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '10vw',
+                      height: '5vh',
+                      marginTop: '0.5vw',
+                      textAlign: 'center',
+                    }}
                     className="btn btn-success"
-                    onClick={handleClick}
+                    onClick={handleLogin}
                   >
                     <GetAppSharp />
                   </button>
@@ -136,7 +150,7 @@ function Login() {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Login;

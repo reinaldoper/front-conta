@@ -1,5 +1,4 @@
-/* import './App.css' */
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { fetchTransaction, fetchUser } from '../service/fetch';
 import { Alert } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add"
@@ -8,10 +7,11 @@ import formateCPF from '../utils/FormataCpf';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-export default function CreateTransaction() {
+const CreateTransaction = () => {
   AOS.init({
     duration: 2500,
   });
+
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -21,31 +21,31 @@ export default function CreateTransaction() {
 
   useEffect(() => {
     const getData = async () => {
-      const resul = localStorage.getItem('token');
-      const { token } = JSON.parse(resul);
-      console.log(token);
-      const emails = localStorage.getItem('email');
-      const update = {
-        email: JSON.parse(emails),
-      };
-      const options = {
-        method: 'PATCH',
-        body: JSON.stringify(update),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token,
-        },
-      };
-      const result = await fetchUser(options, '/get');
+      const result = await fetchUserData();
       setUser(result);
-
-    }
+    };
     getData();
   }, []);
 
+  const fetchUserData = async () => {
+    const token = JSON.parse(localStorage.getItem('token')).token;
+    const email = JSON.parse(localStorage.getItem('email'));
+    const update = {
+      email: email,
+    };
+    const options = {
+      method: 'PATCH',
+      body: JSON.stringify(update),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      },
+    };
+    return await fetchUser(options, '/get');
+  };
+
   const handleClick = async () => {
-    const resul = localStorage.getItem('token');
-    const { token } = JSON.parse(resul);
+    const { token } = JSON.parse(localStorage.getItem('token'));
     const update = {
       accountId: formateCPF(accountId),
       value: Number(value),
@@ -62,22 +62,24 @@ export default function CreateTransaction() {
     if (message) {
       setShowAlert(true);
       setMsg(message);
-      setAccountId('');
-      setValue('');
-      startTimer();
+      resetForm();
+      startTimer(showAlert, setShowAlert);
     } else {
-      console.log(data);
       setAlert(true);
       setMsg(data.transactionId);
-      setAccountId('');
-      setValue('');
+      resetForm();
       startTimerTrue();
     }
   };
 
-  const startTimer = () => {
+  const resetForm = () => {
+    setAccountId('');
+    setValue('');
+  };
+
+  const startTimer = (flag, setFlag) => {
     setTimeout(() => {
-      setShowAlert(false);
+      setFlag(false);
     }, 3000);
   };
 
@@ -100,7 +102,7 @@ export default function CreateTransaction() {
             width: '30vw'
           }}>
             <div className="card-header">
-              <h3 style={{color: 'black',}}>Transaction create</h3>
+              <h3 style={{ color: 'black', }}>Transaction create</h3>
             </div>
             <div className="card-body">
               <form>
@@ -108,20 +110,21 @@ export default function CreateTransaction() {
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={accountId}
                     placeholder="accountId"
                     onChange={(e) => setAccountId(e.target.value)}
                   />
-
                 </div>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-key"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={value}
@@ -130,9 +133,17 @@ export default function CreateTransaction() {
                   />
                 </div>
                 <div className="form-group">
-                  <button type="button"
+                  <button
+                    type="button"
                     data-testId='button'
-                    style={{ display: 'flex', justifyContent: 'center', width: '10vw', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '10vw',
+                      height: '5vh',
+                      marginTop: '0.5vw',
+                      textAlign: 'center'
+                    }}
                     className="btn btn-success"
                     onClick={handleClick}
                   >
@@ -155,5 +166,7 @@ export default function CreateTransaction() {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
+
+export default CreateTransaction;

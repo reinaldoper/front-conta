@@ -1,18 +1,19 @@
 import { Alert, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import { useState } from 'react';
 import { fetchUser } from '../service/fetch';
 import { useNavigate } from 'react-router-dom';
-import AddIcon from "@mui/icons-material/Add"
+import AddIcon from "@mui/icons-material/Add";
 import formateCPF from '../utils/FormataCpf';
-import validateEmail from "../utils/validateEmail";
+import validateEmail from '../utils/validateEmail';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-export default function CreateUser() {
+const CreateUser = () => {
   AOS.init({
     duration: 2500,
   });
+
   const [msg, setMsg] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState('');
@@ -42,27 +43,25 @@ export default function CreateUser() {
       if (message) {
         setShowAlert(true);
         setMsg(message);
-        setCpf('');
-        setName('');
-        setPassword('');
-        setEmail('');
-        startTimer();
+        resetForm();
+        startTimer(showAlert, setShowAlert);
       } else {
-        setEmail('');
-        setCpf('');
-        setName('');
-        setPassword('');
+        resetForm();
         navigate('/');
       }
     } else {
       setShowAlert(true);
-      setMsg('check it email!');
-      setCpf('');
-      setName('');
-      setPassword('');
-      setEmail('');
+      setMsg('Check your email format!');
+      resetForm();
       startTimer();
     }
+  };
+
+  const resetForm = () => {
+    setEmail('');
+    setCpf('');
+    setName('');
+    setPassword('');
   };
 
   const startTimer = () => {
@@ -83,7 +82,7 @@ export default function CreateUser() {
             width: '30vw'
           }}>
             <div className="card-header">
-              <h3 style={{color: 'black',}}>User create</h3>
+              <h3 style={{ color: 'black', }}>User create</h3>
             </div>
             <div className="card-body">
               <form>
@@ -91,46 +90,47 @@ export default function CreateUser() {
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={name}
                     placeholder="name"
                     onChange={(e) => setName(e.target.value)}
                   />
-
                 </div>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={cpf}
                     placeholder="cpf"
                     onChange={(e) => setCpf(e.target.value)}
                   />
-
                 </div>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
-                  <input type="text"
+                  <input
+                    type="text"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={email}
                     placeholder="email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-
                 </div>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fas fa-key"></i></span>
                   </div>
-                  <input type="password"
+                  <input
+                    type="password"
                     style={{ marginBottom: '0.2vw' }}
                     className="form-control"
                     value={password}
@@ -139,8 +139,16 @@ export default function CreateUser() {
                   />
                 </div>
                 <div className="form-group">
-                  <button type="button"
-                    style={{ display: 'flex', justifyContent: 'center', width: '10vw', height: '5vh', marginTop: '0.5vw', textAlign: 'center' }}
+                  <button
+                    type="button"
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '10vw',
+                      height: '5vh',
+                      marginTop: '0.5vw',
+                      textAlign: 'center'
+                    }}
                     className="btn btn-success"
                     onClick={handleClick}
                   >
@@ -165,5 +173,7 @@ export default function CreateUser() {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default CreateUser;
