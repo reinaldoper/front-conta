@@ -144,6 +144,7 @@ export const CunstomList = styled(Box)`
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 5px;
-    background-image: linear-gradient(#095a7e, #a0b483, #d1e6b2);
+    background-image: background-color: #4d4855;
+    background-image: linear-gradient(147deg, #4d4855 0%, #000000 74%);
     background-size: 100% 100% !important;
 `
