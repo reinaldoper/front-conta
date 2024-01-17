@@ -3,7 +3,7 @@
 html,body{
   width: 100%;
   height: 100vh;
-  background-image: url('https://img.freepik.com/vetores-gratis/conceito-de-processamento-de-dados-grandes-sala-de-servidores-acesso-ao-token-de-tecnologia-blockchain_39422-812.jpg?size=626&ext=jpg');
+  background-image: url('../src/assets/images/sign.jpg');
   background-size: 100% 100%;
   font-family: 'Numans', sans-serif;
 
